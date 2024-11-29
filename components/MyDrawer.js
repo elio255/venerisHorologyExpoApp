@@ -1,6 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import HomePage from './HomePage';
+import MainPage from './MainPage';
 import ShoppingPage from './ShoppingPage';
 import ContactUsPage from './ContactUsPage';
 import CustomDrawerContent from './CustomDrawerContent';
@@ -13,7 +13,7 @@ export default function MyDrawer() {
       useLegacyImplementation
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={HomePage} />
+      <Drawer.Screen name="Main" component={MainPage} />
       <Drawer.Screen name="Shopping" component={ShoppingPage} />
       <Drawer.Screen name="Contact Us" component={ContactUsPage} />
     </Drawer.Navigator>
