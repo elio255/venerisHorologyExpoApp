@@ -13,7 +13,7 @@ export default function ShoppingStack() {
         headerTintColor: '#C5A580',
       }}
     >
-      <Stack.Screen name="ShoppingPage" component={ShoppingPage} options={{ title: 'Shopping' }} />
+      <Stack.Screen name="ShoppingPage" component={ShoppingPage} options={{ headerShown:false }} />
       <Stack.Screen name="ShoppingDetails" component={ShoppingDetails} options={{ title: '' }}  />
     </Stack.Navigator>
   );
