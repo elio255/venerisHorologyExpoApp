@@ -18,9 +18,15 @@ export default function MyDrawer() {
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           headerStyle: { backgroundColor: '#1f1f1f' }, 
-          headerTintColor: '#ffffff', 
+          headerTintColor: '#C5A580', 
           drawerStyle: { backgroundColor: '#121212' }, 
-          drawerLabelStyle: { color: '#ffffff', fontSize: 20, marginTop: 20, paddingBottom: 20, paddingLeft: 20 }, // White text for drawer items
+          drawerLabelStyle: {
+            color: '#C5A580',
+            fontSize: 20,
+            paddingBottom:20,
+            marginTop: 20, // Adjust as needed for spacing
+            paddingHorizontal: 10, // Optional: Ensure alignment horizontally
+           },
           drawerActiveBackgroundColor: '#2e2e2e', 
           drawerActiveTintColor: '#ffffff', 
           drawerInactiveTintColor: '#a0a0a0', 
