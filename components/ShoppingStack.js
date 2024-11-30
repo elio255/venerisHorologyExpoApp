@@ -7,12 +7,13 @@ const Stack = createStackNavigator();
 
 export default function ShoppingStack() {
   return (
-    <Stack.Navigator
+    <Stack.Navigator initialRouteName="HomePage"
       screenOptions={{
         headerStyle: { backgroundColor: '#121212' },
         headerTintColor: '#C5A580',
       }}
     >
+      
       <Stack.Screen name="ShoppingPage" component={ShoppingPage} options={{ headerShown:false }} />
       <Stack.Screen name="ShoppingDetails" component={ShoppingDetails} options={{ title: '' }}  />
     </Stack.Navigator>
