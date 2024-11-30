@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#C5A580',
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'center',
   },
   price: {
