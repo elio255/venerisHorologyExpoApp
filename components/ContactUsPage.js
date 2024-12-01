@@ -4,6 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, A
 // Correct the import path for styles
 import styles from './ContactUsPageStyle'; // Import styles from the new file
 import ContactUsImage from './images/ContactUsImage.png';
+import Geolocation from '@react-native-community/geolocation';
 
 const ContactUs = () => {
   const [name, setName] = useState('');
@@ -40,27 +41,48 @@ const ContactUs = () => {
   };
 
   // Function to open the store location in Google Maps
-  const openStoreLocation = () => {
-    const latitude = 34.256352;  // Batroun, Lebanon Latitude
-    const longitude = 35.660412; // Batroun, Lebanon Longitude
-    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    
-    // Check if the device can open the URL
-    Linking.canOpenURL(url)
-      .then((supported) => {
-        if (supported) {
-          // Open Google Maps in the browser or app
-          Linking.openURL(url);
-        } else {
-          // Handle the case where Google Maps is not available
-          Alert.alert('Error', 'Google Maps is not available on this device.');
+
+
+const openStoreLocation = () => {
+  // Get the current position using Geolocation API
+  Geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+      const url = `https://www.google.com/maps?q=${34.256352},${35.660412}`;
+
+      // Open the Google Maps URL
+      const openUrl = async () => {
+        try {
+          // Attempt to open the URL
+          const supported = await Linking.canOpenURL(url);
+
+          if (supported) {
+            // Open Google Maps with the coordinates
+            Linking.openURL(url);
+          } else {
+            // Handle case where Google Maps isn't available
+            Alert.alert('Error', 'Google Maps is not available on this device.');
+          }
+        } catch (error) {
+          console.error('Error opening Google Maps:', error);
+          Alert.alert('Error', 'An error occurred while opening the location.');
         }
-      })
-      .catch((err) => {
-        console.error('An error occurred while opening Google Maps:', err);
-        Alert.alert('Error', 'An error occurred while opening the location.');
-      });
-  };
+      };
+
+      openUrl();
+    },
+    (error) => {
+      console.error('Error getting location:', error);
+      Alert.alert('Error', 'Unable to get current location.');
+    },
+    {
+      enableHighAccuracy: true,  // High accuracy (useful for GPS)
+      timeout: 15000,  // 15 seconds timeout
+      maximumAge: 10000,  // Cache the result for 10 seconds
+    }
+  );
+};
+
 
   return (
     <ImageBackground 
