@@ -35,22 +35,31 @@ const AccountScreen = () => {
       setBiography(data.biography || '');
     }
   };
-
   const handleUpdate = async () => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userDoc = doc(db, "users", currentUser.uid);
-      await updateDoc(userDoc, {
-        location,
-        country,
-        phoneNumber,
-        biography
-      });
-      alert("Profile updated successfully!");
+      const userSnapshot = await getDoc(userDoc);
+  
+      if (userSnapshot.exists()) {
+        // If user document exists, update it
+        await updateDoc(userDoc, {
+          location,
+          country,
+          phoneNumber,
+          biography,
+        });
+        alert("Profile updated successfully!");
+      } else {
+        // Handle the case where the document doesn't exist
+        alert("Profile does not exist. Please register first.");
+      }
+  
       setIsEditing(false); // Exit editing mode after update
       fetchUserDetails(currentUser.uid); // Refresh user details
     }
   };
+  
 
   const handleLogout = async () => {
     try {
@@ -68,13 +77,10 @@ const AccountScreen = () => {
         </Text>
         <Text style={styles.userEmail}>{user?.email}</Text>
         
-        {/* Display user details with edit icon */}
         <View style={styles.detailContainer}>
           <Text style={styles.detailText}>First Name: {userDetails.firstName}</Text>
           <Text style={styles.detailText}>Last Name: {userDetails.lastName}</Text>
         </View>
-
-        {/* Editable input fields */}
         <TextInput
           style={styles.input}
           value={location}
@@ -110,7 +116,7 @@ const AccountScreen = () => {
           editable={isEditing}
         />
         
-        {/* Update Profile button */}
+        
         {isEditing ? (
           <TouchableOpacity style={styles.button} onPress={handleUpdate}>
             <Text style={styles.buttonText}>Save Changes</Text>
