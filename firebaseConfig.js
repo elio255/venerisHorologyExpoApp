@@ -1,9 +1,11 @@
-// firebaseConfig.js
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, initializeAuth, getReactNativePersistence } from "firebase/auth"; // Adjust imports
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage'; // Import Async Storage
-import { getFirestore } from "firebase/firestore"; // Import Firestore
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, initializeAuth, browserLocalPersistence } from "firebase/auth"; 
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
+import { getFirestore } from "firebase/firestore"; 
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC2wxYyvPJSwHGG0vyBBIoLMDLV7OjbZbI",
   authDomain: "veneris-horology.firebaseapp.com",
@@ -16,13 +18,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-// Set up Firebase Auth with persistence
+// Initialize Firebase Auth
 const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  persistence: browserLocalPersistence,
+  // Alternatively, use getReactNativePersistence(AsyncStorage) if working within a React Native context
 });
 
 // Initialize Firestore
 const db = getFirestore(app); 
 
-export { auth, db };
+export { app, analytics, auth, db };
