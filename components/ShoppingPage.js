@@ -27,7 +27,8 @@ import styles from './ShoppingPageDesign'; // Import the styles
 const watches = [
   { 
       id: 1, 
-      name: 'Heritage HO1980', 
+      name: 'Heritage HO1980',
+      gender:'male', 
       price: 299.99, 
       description: 'A classic design with a modern touch.', 
       image: BestSeller1,
@@ -42,7 +43,8 @@ const watches = [
   { 
       id: 2, 
       name: 'Horology 1818', 
-      price: 199.99, 
+      price: 199.99,
+      gender: 'female', 
       description: 'Timeless elegance for every occasion.', 
       image: BestSeller2,
       attributes: {
@@ -59,6 +61,7 @@ const watches = [
       price: 399.99, 
       description: 'A bold statement piece for the innovative individual.', 
       image: BestSeller3,
+      gender:'unisex',
       attributes: {
           category: 'Casual',
           moreText: 'Round smartwatch with multiple features.',
@@ -71,7 +74,8 @@ const watches = [
       id: 4, 
       name: 'Celestial Eclipse', 
       price: 1450, 
-      description: 'A luxurious watch inspired by the beauty of the cosmos.', 
+      description: 'A luxurious watch inspired by the beauty of the cosmos.',
+      gender:'male', 
       image: watch1,
       attributes: {
           category: 'Luxury',
@@ -84,7 +88,8 @@ const watches = [
   { 
       id: 5, 
       name: 'Rose Imperial', 
-      price: 1100, 
+      price: 1100,
+      gender:'male', 
       description: 'A watch that combines vintage charm with modern elegance.', 
       image: watch2,
       attributes: {
@@ -101,6 +106,7 @@ const watches = [
       price: 2000, 
       description: 'Built for the adventurer, with features for rugged travels.', 
       image: watch3,
+      gender:'unisex',
       attributes: {
           category: 'Sports',
           moreText: 'High water resistance with durable rubber strap.',
@@ -115,6 +121,7 @@ const watches = [
       price: 750, 
       description: 'A stylish unisex watch for everyday elegance.', 
       image: watch4,
+      gender:'male',
       attributes: {
           category: 'Casual',
           moreText: 'Lightweight and versatile with a minimalist dial.',
@@ -127,6 +134,7 @@ const watches = [
       id: 8, 
       name: 'Blues', 
       price: 1300, 
+      gender:'female',
       description: 'A chic watch with a deep blue dial for fashion-forward individuals.', 
       image: watch5,
       attributes: {
@@ -141,6 +149,7 @@ const watches = [
       id: 9, 
       name: 'Lumina', 
       price: 950, 
+      gender:'unisex',
       description: 'An elegant watch with luminous hands for easy reading.', 
       image: watch6,
       attributes: {
@@ -154,6 +163,7 @@ const watches = [
   { 
       id: 10, 
       name: 'Aurora', 
+      gender:'male',
       price: 1100, 
       description: 'A sophisticated watch with a hint of sparkle.', 
       image: watch7,
@@ -169,6 +179,7 @@ const watches = [
       id: 11, 
       name: 'Stellar', 
       price: 680, 
+      gender:'female',
       description: 'A modern watch with an understated elegance.', 
       image: watch8,
       attributes: {
@@ -185,6 +196,7 @@ const watches = [
       price: 1450, 
       description: 'A versatile unisex watch with precision timekeeping.', 
       image: watch9,
+      gender:'unisex',
       attributes: {
           category: 'Classic',
           moreText: 'Features a chronograph and date display.',
@@ -197,6 +209,7 @@ const watches = [
       id: 13, 
       name: 'Vanguard', 
       price: 1550, 
+      gender:'male',
       description: 'A bold watch for those who lead the way.', 
       image: watch10,
       attributes: {
@@ -210,7 +223,8 @@ const watches = [
   { 
       id: 14, 
       name: 'Prestige', 
-      price: 700, 
+      price: 700,
+      gender:'female', 
       description: 'A refined watch for special occasions.', 
       image: watch11,
       attributes: {
