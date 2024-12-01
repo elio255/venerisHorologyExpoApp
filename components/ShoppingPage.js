@@ -1,4 +1,18 @@
-import React, { useState } from 'react';
+
+
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Picker } from '@react-native-picker/picker'; 
+import { useNavigation } from '@react-navigation/native';
+import styles from './ShoppingPageDesign';
+import { getExchangeRates } from './currencyApi';
 import BestSeller1 from './images/bstblack.jpg';
 import BestSeller2 from './images/bstGold.jpg';
 import BestSeller3 from './images/bstFem.jpg';
@@ -13,16 +27,8 @@ import watch8 from './images/watch1.8.png';
 import watch9 from './images/watch1.9.png';
 import watch10 from './images/watch2.0.png';
 import watch11 from './images/watch2.1.png';
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from './ShoppingPageDesign'; // Import the styles
+
+
 
 const watches = [
   { 
@@ -241,7 +247,21 @@ export default function ShoppingPage() {
   const [search, setSearch] = useState('');
   const [selectedGenders, setSelectedGenders] = useState([]);
   const [isGenderFilterOpen, setIsGenderFilterOpen] = useState(true);
-  const navigation = useNavigation(); // Navigation hook
+  const [currency, setCurrency] = useState('USD'); // Selected currency
+  const [exchangeRates, setExchangeRates] = useState(null); // Exchange rates
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const rates = await getExchangeRates();
+        setExchangeRates(rates);
+      } catch (error) {
+        console.error('Error fetching exchange rates:', error);
+      }
+    };
+    fetchRates();
+  }, []);
 
   const handleGenderChange = (gender) => {
     setSelectedGenders((prev) =>
@@ -253,6 +273,13 @@ export default function ShoppingPage() {
     setIsGenderFilterOpen((prev) => !prev);
   };
 
+  const convertPrice = (price) => {
+    if (exchangeRates && currency !== 'USD') {
+      return (price * exchangeRates[currency]).toFixed(2);
+    }
+    return price.toFixed(2);
+  };
+
   const filteredWatches = watches.filter(
     (watch) =>
       watch.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -262,20 +289,25 @@ export default function ShoppingPage() {
   const renderWatchCard = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate('ShoppingDetails', { watch: item })} // Navigate to ShoppingDetails
+      onPress={() =>
+        navigation.navigate('ShoppingDetails', {
+          watch: item,
+          currency,
+          exchangeRates,
+        })
+      }
     >
-      <Image
-        source={item.image}
-        style={isGenderFilterOpen ? styles.imageSmall : styles.imageLarge} // Dynamic styling based on filter
-      />
+      <Image source={item.image} style={styles.imageSmall} />
       <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+      <Text style={styles.price}>
+        {convertPrice(item.price)} {currency}
+      </Text>
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-      {/* Sidebar with Gender Filter */}
+      {/* Sidebar with Gender Filter and Currency Selector */}
       <View style={isGenderFilterOpen ? styles.sidebar : styles.sidebarCollapsed}>
         <TouchableOpacity onPress={toggleGenderFilter} style={styles.filterToggle}>
           <Text style={styles.sidebarTitle}>
@@ -316,6 +348,23 @@ export default function ShoppingPage() {
             </TouchableOpacity>
           </View>
         )}
+
+        {/* Currency Selector */}
+        <View style={styles.currencySelector}>
+          <Text style={styles.sidebarTitle}>
+          {isGenderFilterOpen ? 'Currency:' : ''}
+          </Text>
+          <Picker
+            selectedValue={currency}
+            style={styles.picker}
+            onValueChange={(itemValue) => setCurrency(itemValue)}
+          >
+            {exchangeRates &&
+              Object.keys(exchangeRates).map((cur) => (
+                <Picker.Item key={cur} label={cur} value={cur} />
+              ))}
+          </Picker>
+        </View>
       </View>
 
       {/* Main Content */}

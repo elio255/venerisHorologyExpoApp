@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-na
 import styles from './ShoppingDetailsStyles'; // Import the styles
 
 const ShoppingDetails = ({ route }) => {
-  const { watch } = route.params || {}; // Safely retrieve the watch object
+  const { watch, currency, exchangeRates } = route.params || {}; // Retrieve watch, currency, and exchange rates
 
   if (!watch) {
     return (
@@ -12,6 +12,13 @@ const ShoppingDetails = ({ route }) => {
       </View>
     );
   }
+
+  const convertPrice = (price) => {
+    if (exchangeRates && currency !== 'USD') {
+      return (price * exchangeRates[currency]).toFixed(2);
+    }
+    return price.toFixed(2);
+  };
 
   const handleAddToCart = () => {
     Alert.alert('Added to Basket', `${watch.name} has been added to your basket!`);
@@ -23,7 +30,9 @@ const ShoppingDetails = ({ route }) => {
         <Image source={watch.image} style={styles.image} />
         <View style={styles.info}>
           <Text style={styles.title}>{watch.name}</Text>
-          <Text style={styles.price}>{`$${watch.price.toFixed(2)}`}</Text>
+          <Text style={styles.price}>
+            {convertPrice(watch.price)} {currency}
+          </Text>
           <Text style={styles.description}>{watch.description}</Text>
         </View>
       </View>

@@ -88,6 +88,18 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 14,
   },
+  currencySelector: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#1f1f1f',
+    flexDirection: 'column', // Ensure items stack vertically
+    alignItems: 'stretch',  // Ensure children like Picker take full width
+  },
+  picker: {
+    color: '#C5A580',
+    height: 60,             // Adjust height if needed
+    width: '100%',          // Make Picker take full width of its container
+  },
 });
 
 export default styles;
