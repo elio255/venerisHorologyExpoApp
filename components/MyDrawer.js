@@ -9,7 +9,6 @@ import ContactUsPage from './ContactUsPage'; // Contact Us page
 import MainPage from './MainPage';
 import ShoppingPage from './ShoppingPage';
 import detailsStack from './detailsStack';
-import Navigation from './Navigation';
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({ user }) {
