@@ -39,7 +39,7 @@ export default function MyDrawer({ user }) {
         <Drawer.Screen name="Shopping" component={detailsStack} />
         <Drawer.Screen name="Contact Us" component={ContactUsPage} />
         {!user ? (
-          <Drawer.Screen name="Sign In" component={Navigation} />
+          <Drawer.Screen name="Sign In" component={AuthScreen} />
         ) : (
           <Drawer.Screen name="Profile" component={AccountScreen} />
         )}
