@@ -15,6 +15,25 @@ const AuthScreen = ({ navigation }) => {
 
   const handleSubmit = async () => {
     setError('');
+    if (isRegistering) {
+      // Validate registration fields
+      if (!firstName || !lastName || !phoneNumber || !email || !password) {
+        setError('Please fill in all fields to register.');
+        return;
+      }
+
+      // Validate phone number
+      const phoneRegex = /^[0-9]+$/;
+      if (!phoneRegex.test(phoneNumber)) {
+        setError('Phone number must contain only numbers.');
+        return;
+      }
+    } else { // For login
+      if (!email || !password) {
+        setError('Please provide both email and password to login.');
+        return;
+      }
+    }
     try {
       if (isRegistering) {
         await registerUser(firstName, lastName, phoneNumber, email, password);
