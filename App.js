@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <MyDrawer user={user} /> {/* Pass user state to MyDrawer */}
+      <MyDrawer user={user} /> 
     </NavigationContainer>
   );
 };

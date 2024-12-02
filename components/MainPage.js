@@ -68,7 +68,7 @@ const HomePage = () => {
 
   return (
     <ScrollView style={styles.scrollView}>
-      {/* Best Sellers Section */}
+     
       <View style={styles.bestSellersContainer}>
         <Text style={styles.bestSellersTitle}>Best Sellers</Text>
 
@@ -89,7 +89,7 @@ const HomePage = () => {
         </ScrollView>
       </View>
 
-      {/* Discover More Button */}
+     
       <TouchableOpacity style={styles.discoverMoreButton} onPress={handleDiscoverMorePress}>
         <Text style={styles.discoverMoreText}>Discover More</Text>
       </TouchableOpacity>
@@ -102,12 +102,12 @@ const HomePage = () => {
         </View>
       </View>
 
-      {/* Shop Now Button moved outside fullImageContainer */}
+
       <TouchableOpacity style={styles.shopNowButton} onPress={() => console.log('Navigating to shop section...')}>
         <Text style={styles.shopNowText}>Shop Now</Text>
       </TouchableOpacity>
 
-      {/* Founder Image and Text Section */}
+  
       <View style={styles.founderContainer}>
         <Image source={founderImage} style={styles.founderImage} />
         <View style={styles.founderTextContainer}>

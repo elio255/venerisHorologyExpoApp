@@ -84,6 +84,33 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  locationButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  
+  viewButton: {
+    backgroundColor: '#C5A580', 
+    borderRadius: 5,
+    paddingVertical: 10,
+    flex: 1,
+    marginRight: 10,
+  },
+
+  smsButton: {
+    
+    borderRadius: 5,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
+  viewButtonText: {
+    color: 'black', 
+    textAlign: 'center',
+  },
 });
 
 export default styles;

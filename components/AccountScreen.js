@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { auth } from '../firebaseConfig';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
+import * as Location from 'expo-location'; // Import Location
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const db = getFirestore();
@@ -13,6 +14,7 @@ const AccountScreen = () => {
   const [country, setCountry] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [biography, setBiography] = useState('');
+  const [buildingFloor, setBuildingFloor] = useState(''); // New state for Building/Floor
   const [isEditing, setIsEditing] = useState(false); // State for editing mode
 
   useEffect(() => {
@@ -33,6 +35,7 @@ const AccountScreen = () => {
       setCountry(data.country || '');
       setPhoneNumber(data.phoneNumber || '');
       setBiography(data.biography || '');
+      setBuildingFloor(data.buildingFloor || ''); // Populate Building/Floor
     }
   };
 
@@ -40,13 +43,21 @@ const AccountScreen = () => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userDoc = doc(db, "users", currentUser.uid);
-      await updateDoc(userDoc, {
-        location,
-        country,
-        phoneNumber,
-        biography
-      });
-      alert("Profile updated successfully!");
+      const userSnapshot = await getDoc(userDoc);
+  
+      if (userSnapshot.exists()) {
+        await updateDoc(userDoc, {
+          location,
+          country,
+          phoneNumber,
+          biography,
+          buildingFloor, // Include the new field in the update
+        });
+        Alert.alert("Profile updated successfully!");
+      } else {
+        Alert.alert("Profile does not exist. Please register first.");
+      }
+
       setIsEditing(false); // Exit editing mode after update
       fetchUserDetails(currentUser.uid); // Refresh user details
     }
@@ -60,45 +71,86 @@ const AccountScreen = () => {
     }
   };
 
+  // Function to get current location
+  const getCurrentLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission to access location was denied');
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    const { latitude, longitude } = location.coords;
+
+    let reverseGeocode = await Location.reverseGeocodeAsync({
+      latitude,
+      longitude,
+    });
+    
+    if (reverseGeocode.length > 0) {
+      const locationDetails = reverseGeocode[0];
+      setLocation(`${locationDetails.city || ''}, ${locationDetails.region || ''}`); 
+      setCountry(locationDetails.country || '');
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileCard}>
         <MaterialCommunityIcons name="account-circle" size={100} color="#C5A580" />
-        <Text style={styles.userName}>Your Profile
-        </Text>
+        <Text style={styles.userName}>Your Profile</Text>
         <Text style={styles.userEmail}>{user?.email}</Text>
         
-        {/* Display user details with edit icon */}
         <View style={styles.detailContainer}>
           <Text style={styles.detailText}>First Name: {userDetails.firstName}</Text>
           <Text style={styles.detailText}>Last Name: {userDetails.lastName}</Text>
         </View>
-
-        {/* Editable input fields */}
-        <TextInput
-          style={styles.input}
-          value={location}
-          onChangeText={setLocation}
-          placeholder="Location"
-          placeholderTextColor="gray"
-          editable={isEditing}
-        />
+        
         <TextInput
           style={styles.input}
           value={country}
           onChangeText={setCountry}
           placeholder="Country"
           placeholderTextColor="gray"
-          editable={isEditing}
+          editable={isEditing} // Disable if not in editing mode
         />
+        <View style={styles.locationContainer}>
+          
+  <TextInput
+    style={styles.input}
+    value={location}
+    onChangeText={setLocation}
+    placeholder="Location"
+    placeholderTextColor="gray"
+    editable={isEditing} // Disable if not in editing mode
+  />
+  {isEditing && (
+    <TouchableOpacity onPress={getCurrentLocation} style={styles.locationIcon}>
+      <MaterialCommunityIcons name="map-marker" size={25} color="#C5A580" style={styles.iconStyle} /> {/* Add a style for consistent placement */}
+    </TouchableOpacity>
+  )}
+</View>
+        
+      
+        
+        <TextInput
+          style={styles.input}
+          value={buildingFloor}
+          onChangeText={setBuildingFloor}
+          placeholder="Address (Building/Floor)"
+          placeholderTextColor="gray"
+          editable={isEditing} // Disable if not in editing mode
+        />
+
         <TextInput
           style={styles.input}
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           placeholder="Phone Number"
           placeholderTextColor="gray"
-          editable={isEditing}
+          editable={isEditing} // Disable if not in editing mode
         />
+        
         <TextInput
           style={styles.input}
           value={biography}
@@ -107,14 +159,14 @@ const AccountScreen = () => {
           placeholderTextColor="gray"
           multiline
           numberOfLines={4}
-          editable={isEditing}
+          editable={isEditing} // Disable if not in editing mode
         />
         
-        {/* Update Profile button */}
+
         {isEditing ? (
           <TouchableOpacity style={styles.button} onPress={handleUpdate}>
             <Text style={styles.buttonText}>Save Changes</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         ) : (
           <TouchableOpacity style={styles.button} onPress={() => setIsEditing(true)}>
             <Text style={styles.buttonText}>Edit Profile</Text>
@@ -141,14 +193,13 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     padding: 20,
     borderRadius: 10,
-    backgroundColor: '#242424', // Beige color for the card
+    backgroundColor: '#242424',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5, // Effective shadow for Android
@@ -174,15 +225,33 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     width: '100%',
   },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    width: '100%',
+    position: 'relative', // Added
+  },
   input: {
-    backgroundColor: '#2E2E2E', // Dark background for input fields
-    color: 'white', // White text for input fields
+    backgroundColor: '#2E2E2E',
+    color: 'white',
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: 'gray', // Border color for input fields
+    borderColor: 'gray',
     padding: 10,
     borderRadius: 5,
-    width: '100%', // Full width for input fields
+    width: '100%',
+  },
+  iconStyle: {
+  
+    position: 'absolute',
+    right: 10,  // Distance from the right edge
+    marginTop:-65,    // Adjust this value to position the icon higher, possibly over the label
+    zIndex: 1,
+    paddingLeft:0,
+  },
+  locationIcon: {
+    paddingLeft: 33,
   },
   button: {
     backgroundColor: '#C5A580', // Beige background for buttons

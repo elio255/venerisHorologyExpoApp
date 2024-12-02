@@ -13,7 +13,7 @@ const Drawer = createDrawerNavigator();
 export default function MyDrawer({ user }) {
   return (
     <>
-      {/* Configure the status bar */}
+     
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} user={user} />}
