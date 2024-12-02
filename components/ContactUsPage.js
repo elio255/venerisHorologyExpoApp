@@ -116,9 +116,9 @@ const ContactUs = () => {
       {/* Store Location Section */}
       <View style={styles.locationBox}>
       <Text style={styles.locationTitle}>Store Location:</Text>
-        <Text style={styles.locationText}>Tahan Store, Batroun, Lebanon</Text>
-        <Text style={styles.locationText}>Street: [Street Name]</Text>
-        <Text style={styles.locationText}>Building: [Building Name]</Text>
+        <Text style={styles.locationText}>Veneris Horology , Batroun, Lebanon</Text>
+        <Text style={styles.locationText}>Street: Sea side road </Text>
+        <Text style={styles.locationText}>Building: Tahan Store </Text>
         <Text style={styles.locationText}>Telephone: +961 12 345678</Text>
         <Text style={styles.locationText}>FAX: 012 345 678</Text>
 
