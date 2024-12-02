@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';  // Import navigation hook
-import { useCurrency } from './CurrencyContext';  // Import currency context
+import { useNavigation } from '@react-navigation/native';  
+import { useCurrency } from './CurrencyContext';  
 import BestSeller1 from './images/bstblack-removebg.png';
 import BestSeller2 from './images/bstGold-removebg.png';
 import BestSeller3 from './images/bstFem-removebg.png';
@@ -52,22 +52,19 @@ const bestSellersData = [
 ];
 
 const HomePage = () => {
-  const { currency, exchangeRates } = useCurrency(); // Access currency and exchange rates from context
-  const navigation = useNavigation();  // Navigation hook
+  const { currency, exchangeRates } = useCurrency(); 
+  const navigation = useNavigation(); 
 
-  // Function to convert price based on selected currency
+ 
   const convertPrice = (price) => {
     if (exchangeRates && currency !== 'USD') {
       return (price * exchangeRates[currency]).toFixed(2);
     }
-    return price.toFixed(2);  // If no conversion needed, return the original price
+    return price.toFixed(2);  
   };
 
-  // Handle the watch selection
   const handleWatchPress = (watch) => {
-    const convertedPrice = convertPrice(watch.price);  // Get the price in selected currency
-console.log(convertedPrice);
-    // Ensure you're passing the converted price, not the original one
+    const convertedPrice = convertPrice(watch.price);  
     navigation.navigate('ShoppingDetails', { 
       watch, 
       convertedPrice,
@@ -77,7 +74,6 @@ console.log(convertedPrice);
 
   return (
     <ScrollView style={styles.scrollView}>
-     {/* Full Image Section */}
      <View style={styles.fullImageContainer}>
         <Image source={require('./images/firstFullpic.png')} style={styles.fullImage} />
         <View style={styles.overlayTextContainer}>
@@ -87,7 +83,7 @@ console.log(convertedPrice);
 </View>
 
       
-{/* Shop Now Button */}
+
 <TouchableOpacity style={styles.shopNowButton} onPress={() => navigation.navigate('Shopping')}>
         <Text style={styles.shopNowText}>Shop Now</Text>
       </TouchableOpacity>
@@ -100,13 +96,13 @@ console.log(convertedPrice);
           {bestSellersData.map((item) => (
             <TouchableOpacity
               key={item.id}
-              onPress={() => handleWatchPress(item)}  // Navigate to ShoppingDetails with the watch data and converted price
+              onPress={() => handleWatchPress(item)} 
             >
               <View style={styles.bestSellerCard}>
                 <Image source={item.image} style={styles.bestSellerImage} />
                 <Text style={styles.bestSellerName}>{item.name}</Text>
                 <Text style={styles.bestSellerPrice}>
-                  {convertPrice(item.price)} {currency} {/* Display converted price */}
+                  {convertPrice(item.price)} {currency} 
                 </Text>
                 <Text style={styles.bestSellerDescription}>{item.description}</Text>
               </View>
@@ -115,11 +111,10 @@ console.log(convertedPrice);
         </ScrollView>
       </View>
       
-{/* Discover More Button */}
+
 <TouchableOpacity style={styles.discoverMoreButton} onPress={() => navigation.navigate('Shopping')}>
         <Text style={styles.discoverMoreText}>Discover More</Text>
       </TouchableOpacity>
-      {/* Founder Section */}
       <View style={styles.founderContainer}>
         <Image source={require('./images/founder-removebg-preview.png')} style={styles.founderImage} />
         <View style={styles.founderTextContainer}>
@@ -250,18 +245,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   founderContainer: {
-    alignItems: 'center',  // Center the content
+    alignItems: 'center',  
     marginVertical: 20,
   },
   founderImage: {
-    width: 150,  // Adjust the size as needed
+    width: 150, 
     height: 150,
     resizeMode: 'contain',
-    borderRadius: 75,  // Keep circular shape
+    borderRadius: 75, 
   },
   founderTextContainer: {
-    marginTop: 10,  // Add some space between image and text
-    alignItems: 'center',  // Center the text below the image
+    marginTop: 10, 
+    alignItems: 'center', 
   },
   founderTitle: {
     fontSize: 20,
@@ -272,7 +267,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#bbb',
     marginTop: 10,
-    textAlign: 'center',  // Center-align the description text
+    textAlign: 'center',  
     fontWeight: 'bold',
   },
 });

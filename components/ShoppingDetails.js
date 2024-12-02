@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import styles from './ShoppingDetailsStyles'; // Import the styles
+import styles from './ShoppingDetailsStyles'; 
 
 const ShoppingDetails = ({ route }) => {
-  const { watch, currency, exchangeRates } = route.params || {}; // Retrieve watch, currency, and exchange rates
+  const { watch, currency, exchangeRates } = route.params || {}; 
 
-  // If no watch data is passed, display an error message
+
   if (!watch) {
     return (
       <View style={styles.container}>
@@ -14,16 +14,15 @@ const ShoppingDetails = ({ route }) => {
     );
   }
 
-  // Function to convert price based on selected currency
   const convertPrice = (price) => {
     if (exchangeRates && currency !== 'USD') {
-      // Ensure exchangeRates and currency are defined before using them
+     
       return (price * exchangeRates[currency] || 1).toFixed(2);
     }
-    return price.toFixed(2); // If no conversion needed, return the original price
+    return price.toFixed(2); 
   };
 
-  // Handle adding to cart
+  
   const handleAddToCart = () => {
     Alert.alert('Added to Basket', `${watch.name} has been added to your basket!`);
   };
@@ -35,7 +34,7 @@ const ShoppingDetails = ({ route }) => {
         <View style={styles.info}>
           <Text style={styles.title}>{watch.name}</Text>
           <Text style={styles.price}>
-            {convertPrice(watch.price)} {currency} {/* Display converted price */}
+            {convertPrice(watch.price)} {currency} 
           </Text>
           <Text style={styles.description}>{watch.description}</Text>
         </View>

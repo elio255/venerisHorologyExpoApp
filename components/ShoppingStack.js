@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 
 export default function ShoppingStack() {
   return (
-    <Stack.Navigator  // Keep HomePage here
+    <Stack.Navigator 
       screenOptions={{
         headerStyle: { backgroundColor: '#121212' },
         headerTintColor: '#C5A580',

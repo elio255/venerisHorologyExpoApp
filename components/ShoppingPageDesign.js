@@ -92,13 +92,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
     backgroundColor: '#1f1f1f',
-    flexDirection: 'column', // Ensure items stack vertically
-    alignItems: 'stretch',  // Ensure children like Picker take full width
+    flexDirection: 'column', 
+    alignItems: 'stretch',  
   },
   picker: {
-    color: '#C5A580', // Default text color for dropdown options
-    width: '100%',    // Ensure the Picker spans the container's width
-    height: 80,       // Adjust the height for proper rendering
+    color: '#C5A580', 
+    width: '100%',    
+    height: 80,      
   },
   
 });

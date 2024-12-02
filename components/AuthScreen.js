@@ -1,7 +1,5 @@
-// AuthScreen.js
 import React, { useState } from 'react';
-// AuthScreen.js
-import { registerUser, loginUser } from './AuthService'; // Ensure the path is correct
+import { registerUser, loginUser } from './AuthService'; 
 
 import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const AuthScreen = ({ navigation }) => {
@@ -22,8 +20,8 @@ const AuthScreen = ({ navigation }) => {
     }
   
   
-    // Check if phone number is numeric
-    const phoneRegex = /^[0-9]+$/; // Regular expression for numeric values
+   
+    const phoneRegex = /^[0-9]+$/;
     if (!phoneRegex.test(phoneNumber)) {
       setError('Phone number must contain only numbers.');
       return;
@@ -40,7 +38,7 @@ const AuthScreen = ({ navigation }) => {
     } else {
       await loginUser(email, password);
     }
-    navigation.navigate('Main'); // Navigate to Main page or home screen
+    navigation.navigate('Main'); 
   } catch (error) {
     setError(error.message);
   }
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#242424',
     padding:0,
-    margin:0, // Background color for the entire screen
+    margin:0,
   },
   card: {
     width: '90%',
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
     maxHeight:800,
     padding: 20,
     borderRadius: 10,
-    backgroundColor: '#C5A580', // Beige color for the card
+    backgroundColor: '#C5A580', 
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5, // Effective shadow for Android
+    elevation: 5, 
   }, 
   button:{
 
@@ -140,23 +138,23 @@ const styles = StyleSheet.create({
    
   },
   buttonText: {
-    color: 'black', // Text color for the button
+    color: 'black', 
     fontSize: 16,
     textAlign:'center'
   },
   input: {
-    backgroundColor: '#2E2E2E', // Black background for input fields
-    color: 'white', // White text color for input
+    backgroundColor: '#2E2E2E',
+    color: 'white', 
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: 'gray', // Color of the input border
+    borderColor: 'gray', 
     padding: 10,
-    borderRadius: 5, // Rounded corners for input fields
+    borderRadius: 5,
   },
   toggleText: {
-    color: 'white', // Color for the toggle text
+    color: 'white', 
     marginTop: 10,
-    textAlign: 'center', // Center the toggle text
+    textAlign: 'center', 
   },
   errorText: {
     color: 'red',

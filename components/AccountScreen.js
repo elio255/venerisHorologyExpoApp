@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { auth } from '../firebaseConfig';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
-import * as Location from 'expo-location'; // Import Location
+import * as Location from 'expo-location'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const db = getFirestore();
@@ -14,8 +14,8 @@ const AccountScreen = () => {
   const [country, setCountry] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [biography, setBiography] = useState('');
-  const [buildingFloor, setBuildingFloor] = useState(''); // New state for Building/Floor
-  const [isEditing, setIsEditing] = useState(false); // State for editing mode
+  const [buildingFloor, setBuildingFloor] = useState('');
+  const [isEditing, setIsEditing] = useState(false); 
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -35,7 +35,7 @@ const AccountScreen = () => {
       setCountry(data.country || '');
       setPhoneNumber(data.phoneNumber || '');
       setBiography(data.biography || '');
-      setBuildingFloor(data.buildingFloor || ''); // Populate Building/Floor
+      setBuildingFloor(data.buildingFloor || ''); 
     }
   };
 
@@ -51,15 +51,15 @@ const AccountScreen = () => {
           country,
           phoneNumber,
           biography,
-          buildingFloor, // Include the new field in the update
+          buildingFloor, 
         });
         Alert.alert("Profile updated successfully!");
       } else {
         Alert.alert("Profile does not exist. Please register first.");
       }
 
-      setIsEditing(false); // Exit editing mode after update
-      fetchUserDetails(currentUser.uid); // Refresh user details
+      setIsEditing(false);
+      fetchUserDetails(currentUser.uid); 
     }
   };
 
@@ -71,7 +71,6 @@ const AccountScreen = () => {
     }
   };
 
-  // Function to get current location
   const getCurrentLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
@@ -112,7 +111,7 @@ const AccountScreen = () => {
           onChangeText={setCountry}
           placeholder="Country"
           placeholderTextColor="gray"
-          editable={isEditing} // Disable if not in editing mode
+          editable={isEditing} 
         />
         <View style={styles.locationContainer}>
           
@@ -122,11 +121,11 @@ const AccountScreen = () => {
     onChangeText={setLocation}
     placeholder="Location"
     placeholderTextColor="gray"
-    editable={isEditing} // Disable if not in editing mode
+    editable={isEditing}
   />
   {isEditing && (
     <TouchableOpacity onPress={getCurrentLocation} style={styles.locationIcon}>
-      <MaterialCommunityIcons name="map-marker" size={25} color="#C5A580" style={styles.iconStyle} /> {/* Add a style for consistent placement */}
+      <MaterialCommunityIcons name="map-marker" size={25} color="#C5A580" style={styles.iconStyle} /> 
     </TouchableOpacity>
   )}
 </View>
@@ -139,7 +138,7 @@ const AccountScreen = () => {
           onChangeText={setBuildingFloor}
           placeholder="Address (Building/Floor)"
           placeholderTextColor="gray"
-          editable={isEditing} // Disable if not in editing mode
+          editable={isEditing} 
         />
 
         <TextInput
@@ -148,7 +147,7 @@ const AccountScreen = () => {
           onChangeText={setPhoneNumber}
           placeholder="Phone Number"
           placeholderTextColor="gray"
-          editable={isEditing} // Disable if not in editing mode
+          editable={isEditing}
         />
         
         <TextInput
@@ -159,7 +158,7 @@ const AccountScreen = () => {
           placeholderTextColor="gray"
           multiline
           numberOfLines={4}
-          editable={isEditing} // Disable if not in editing mode
+          editable={isEditing} 
         />
         
 
@@ -202,7 +201,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5, // Effective shadow for Android
+    elevation: 5, 
   },
   userName: {
     fontSize: 24,
@@ -225,13 +224,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     width: '100%',
   },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    width: '100%',
-    position: 'relative', // Added
-  },
+  
   input: {
     backgroundColor: '#2E2E2E',
     color: 'white',
@@ -245,26 +238,34 @@ const styles = StyleSheet.create({
   iconStyle: {
   
     position: 'absolute',
-    right: 10,  // Distance from the right edge
-    marginTop:-65,    // Adjust this value to position the icon higher, possibly over the label
+    right: 10, 
+    marginTop:-65,    
     zIndex: 1,
     paddingLeft:0,
   },
-  locationIcon: {
-    paddingLeft: 33,
-  },
+  locationContainer: {
+    flexDirection: 'row',       
+    alignItems: 'center',      
+    marginBottom: 10,
+    position: 'relative',      
+},
+locationIcon: {
+    position: 'absolute',       
+    right: 0,               
+},
+
   button: {
-    backgroundColor: '#C5A580', // Beige background for buttons
-    borderColor: 'white', // White border for buttons
+    backgroundColor: '#C5A580',
+    borderColor: 'white',
     borderWidth: 2,
     borderRadius: 5,
     paddingVertical: 10,
     marginTop: 10,
-    width: '100%', // Full width for buttons
+    width: '100%',
     alignItems: 'center',
   },
   buttonText: {
-    color: 'black', // Button text color
+    color: 'black', 
     fontSize: 16,
   },
   logoutButton: {
@@ -272,11 +273,11 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#C5A580',
     borderRadius: 5,
-    width: '100%', // Full width for logout button
+    width: '100%', 
     alignItems: 'center',
   },
   logoutText: {
-    color: 'black', // Text color for the logout button
+    color: 'black', 
     fontSize: 16,
   },
 });

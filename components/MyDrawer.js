@@ -1,11 +1,11 @@
 import React from 'react';
-import { StatusBar } from 'react-native'; // Import StatusBar
+import { StatusBar } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import CustomDrawerContent from './CustomDrawerContent'; // Custom drawer content
-import ShoppingStack from './ShoppingStack'; // ShoppingStack
-import AuthScreen from './AuthScreen'; // Sign-in screen
-import AccountScreen from './AccountScreen'; // Profile screen for user account
-import ContactUsPage from './ContactUsPage'; // Contact Us page
+import CustomDrawerContent from './CustomDrawerContent'; 
+import ShoppingStack from './ShoppingStack';
+import AuthScreen from './AuthScreen';
+import AccountScreen from './AccountScreen'; 
+import ContactUsPage from './ContactUsPage'; 
 import MainPage from './MainPage';
 import ShoppingPage from './ShoppingPage';
 import detailsStack from './detailsStack';
@@ -14,24 +14,24 @@ const Drawer = createDrawerNavigator();
 export default function MyDrawer({ user }) {
   return (
     <>
-      {/* Configure the status bar */}
+     
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} user={user} />}
         screenOptions={{
-          headerStyle: { backgroundColor: '#1f1f1f' }, // Header background
-          headerTintColor: '#C5A580', // Header text color
-          drawerStyle: { backgroundColor: '#121212' }, // Drawer background
+          headerStyle: { backgroundColor: '#1f1f1f' },
+          headerTintColor: '#C5A580', 
+          drawerStyle: { backgroundColor: '#121212' }, 
           drawerLabelStyle: {
-            color: '#C5A580', // Drawer label text color
+            color: '#C5A580', 
             fontSize: 20,
             paddingBottom: 20,
             marginTop: 20,
             paddingHorizontal: 10,
           },
-          drawerActiveBackgroundColor: '#2e2e2e', // Active drawer item background
-          drawerActiveTintColor: '#ffffff', // Active drawer item text color
-          drawerInactiveTintColor: '#a0a0a0', // Inactive drawer item text color
+          drawerActiveBackgroundColor: '#2e2e2e', 
+          drawerActiveTintColor: '#ffffff', 
+          drawerInactiveTintColor: '#a0a0a0',
         }}
       >
         <Drawer.Screen name="Main" component={ShoppingStack} />

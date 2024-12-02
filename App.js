@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import MyDrawer from './components/MyDrawer';
@@ -7,14 +6,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { CurrencyProvider } from './components/CurrencyContext';
 
 const App = () => {
-  const [user, setUser] = useState(null); // State to manage user
+  const [user, setUser] = useState(null); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser); // Updates user state based on authentication
+      setUser(currentUser); 
     });
 
-    return () => unsubscribe(); // Cleanup subscription on unmount
+    return () => unsubscribe(); 
   }, []);
 
   return (

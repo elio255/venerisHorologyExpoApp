@@ -1,10 +1,9 @@
-// CustomDrawerContent.js
 import React from 'react';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 
 const CustomDrawerContent = (props) => {
-  const { user } = props; // Get user prop to determine the authentication state
+  const { user } = props; 
   const navigation = useNavigation();
 
   return (

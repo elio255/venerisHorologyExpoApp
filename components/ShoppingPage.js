@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker'; 
 import { useNavigation } from '@react-navigation/native';
-import { useCurrency } from './CurrencyContext'; // Import the currency context
+import { useCurrency } from './CurrencyContext';
 import styles from './ShoppingPageDesign';
 import { getExchangeRates } from './currencyApi';
 import BestSeller1 from './images/bstblack.jpg';
@@ -244,25 +244,24 @@ const watches = [
 ];
 
 export default function ShoppingPage() {
-  const { currency, changeCurrency } = useCurrency(); // Access currency context
+  const { currency, changeCurrency } = useCurrency(); 
   const [search, setSearch] = useState('');
   const [selectedGenders, setSelectedGenders] = useState([]);
   const [isGenderFilterOpen, setIsGenderFilterOpen] = useState(true);
-  const [exchangeRates, setExchangeRates] = useState(null); // Exchange rates
+  const [exchangeRates, setExchangeRates] = useState(null); 
   const navigation = useNavigation();
 
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        const rates = await getExchangeRates(); // Fetch exchange rates using the current currency
+        const rates = await getExchangeRates(); 
         setExchangeRates(rates);
       } catch (error) {
         console.error('Error fetching exchange rates:', error);
       }
     };
     fetchRates();
-  }, [currency]); // Refetch exchange rates when currency changes
-
+  }, [currency]); 
   const handleGenderChange = (gender) => {
     setSelectedGenders((prev) =>
       prev.includes(gender) ? prev.filter((g) => g !== gender) : [...prev, gender]
@@ -307,7 +306,6 @@ export default function ShoppingPage() {
 
   return (
     <View style={styles.container}>
-      {/* Sidebar with Gender Filter and Currency Selector */}
       <View style={isGenderFilterOpen ? styles.sidebar : styles.sidebarCollapsed}>
         <TouchableOpacity onPress={toggleGenderFilter} style={styles.filterToggle}>
           <Text style={styles.sidebarTitle}>
@@ -349,7 +347,6 @@ export default function ShoppingPage() {
           </View>
         )}
 
-        {/* Currency Selector */}
         <View style={styles.currencySelector}>
           <Text style={styles.sidebarTitle}>
             {isGenderFilterOpen ? 'Currency:' : ''}
@@ -357,8 +354,8 @@ export default function ShoppingPage() {
           <Picker
             selectedValue={currency}
             style={styles.picker}
-            onValueChange={(itemValue) => changeCurrency(itemValue)} // Change currency
-            itemStyle={{ color: '#C5A580' }} // Set the selected text color to beige
+            onValueChange={(itemValue) => changeCurrency(itemValue)} 
+            itemStyle={{ color: '#C5A580' }} 
           >
             {exchangeRates &&
               Object.keys(exchangeRates).map((cur) => (
@@ -368,7 +365,7 @@ export default function ShoppingPage() {
         </View>
       </View>
 
-      {/* Main Content */}
+      
       <View style={styles.content}>
         <Text style={styles.header}>Catch the time by our Watches</Text>
         <TextInput

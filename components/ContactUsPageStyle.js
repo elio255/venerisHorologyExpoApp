@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
   },
 
   smsButton: {
-    
     borderRadius: 5,
     padding: 10,
     justifyContent: 'center',
