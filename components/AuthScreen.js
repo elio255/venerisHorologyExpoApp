@@ -34,19 +34,17 @@ const AuthScreen = ({ navigation }) => {
     }
   }
 
- 
-    try {
-      if (isRegistering) {
-        await registerUser(firstName, lastName, phoneNumber, email, password);
-        // Navigate to login screen after registration
-        navigation.navigate('Login');
-      } else {
-        await loginUser(email, password);
-        navigation.navigate('Main');
-      }
-    } catch (error) {
-      setError(error.message);
+  try {
+    if (isRegistering) {
+      await registerUser(firstName, lastName, phoneNumber, email, password);
+    } else {
+      await loginUser(email, password);
     }
+    navigation.navigate('Main'); // Navigate to Main page or home screen
+  } catch (error) {
+    setError(error.message);
+  }
+
   
 };
 
