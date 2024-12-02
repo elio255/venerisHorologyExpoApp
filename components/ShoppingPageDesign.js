@@ -96,10 +96,11 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',  // Ensure children like Picker take full width
   },
   picker: {
-    color: '#C5A580',
-    height: 60,             // Adjust height if needed
-    width: '100%',          // Make Picker take full width of its container
+    color: '#C5A580', // Default text color for dropdown options
+    width: '100%',    // Ensure the Picker spans the container's width
+    height: 80,       // Adjust the height for proper rendering
   },
+  
 });
 
 export default styles;

@@ -351,20 +351,22 @@ export default function ShoppingPage() {
 
         {/* Currency Selector */}
         <View style={styles.currencySelector}>
-          <Text style={styles.sidebarTitle}>
-          {isGenderFilterOpen ? 'Currency:' : ''}
-          </Text>
-          <Picker
-            selectedValue={currency}
-            style={styles.picker}
-            onValueChange={(itemValue) => setCurrency(itemValue)}
-          >
-            {exchangeRates &&
-              Object.keys(exchangeRates).map((cur) => (
-                <Picker.Item key={cur} label={cur} value={cur} />
-              ))}
-          </Picker>
-        </View>
+  <Text style={styles.sidebarTitle}>
+    {isGenderFilterOpen ? 'Currency:' : ''}
+  </Text>
+  <Picker
+    selectedValue={currency}
+    style={styles.picker}
+    onValueChange={(itemValue) => setCurrency(itemValue)}
+    itemStyle={{ color: '#C5A580' }} // Set the selected text color to beige
+  >
+    {exchangeRates &&
+      Object.keys(exchangeRates).map((cur) => (
+        <Picker.Item key={cur} label={cur} value={cur} />
+      ))}
+  </Picker>
+</View>
+
       </View>
 
       {/* Main Content */}
