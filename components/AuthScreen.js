@@ -1,9 +1,7 @@
-// AuthScreen.js
 import React, { useState } from 'react';
-// AuthScreen.js
-import { registerUser, loginUser } from './AuthService'; // Ensure the path is correct
-
+import { registerUser } from './AuthService'; // Ensure the path is correct
 import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
 const AuthScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -28,12 +26,14 @@ const AuthScreen = ({ navigation }) => {
         setError('Phone number must contain only numbers.');
         return;
       }
-    } else { // For login
+    } else {
+      // Validate login fields
       if (!email || !password) {
         setError('Please provide both email and password to login.');
         return;
       }
     }
+
     try {
       if (isRegistering) {
         await registerUser(firstName, lastName, phoneNumber, email, password);
@@ -48,7 +48,9 @@ const AuthScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-       <Text  style={ {marginTop:-40,marginBottom:20,textAlign:'center', fontSize:20 ,color:'white'} }>Please Enter your Info</Text>
+      <Text style={{ marginTop: -40, marginBottom: 20, textAlign: 'center', fontSize: 20, color: 'white' }}>
+        Please Enter your Info
+      </Text>
       <View style={styles.card}>
         {isRegistering && (
           <>
@@ -57,21 +59,21 @@ const AuthScreen = ({ navigation }) => {
               value={firstName}
               onChangeText={setFirstName}
               style={styles.input}
-               placeholderTextColor="lightgray"
+              placeholderTextColor="lightgray"
             />
             <TextInput
               placeholder="Last Name"
               value={lastName}
               onChangeText={setLastName}
               style={styles.input}
-               placeholderTextColor="lightgray"
+              placeholderTextColor="lightgray"
             />
             <TextInput
               placeholder="Phone Number"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
               style={styles.input}
-               placeholderTextColor="lightgray"
+              placeholderTextColor="lightgray"
             />
           </>
         )}
@@ -80,7 +82,7 @@ const AuthScreen = ({ navigation }) => {
           value={email}
           onChangeText={setEmail}
           style={styles.input}
-           placeholderTextColor="lightgray"
+          placeholderTextColor="lightgray"
         />
         <TextInput
           placeholder="Password"
@@ -88,9 +90,9 @@ const AuthScreen = ({ navigation }) => {
           onChangeText={setPassword}
           secureTextEntry
           style={styles.input}
-           placeholderTextColor="lightgray"
+          placeholderTextColor="lightgray"
         />
-         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>{isRegistering ? "Register" : "Login"}</Text>
         </TouchableOpacity>
         <Text onPress={() => setIsRegistering(!isRegistering)} style={styles.toggleText}>
@@ -98,7 +100,8 @@ const AuthScreen = ({ navigation }) => {
         </Text>
         {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
-    </View>
+      </View>
+    
   );
 };
 
@@ -108,13 +111,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#242424',
-    padding:0,
-    margin:0, // Background color for the entire screen
+    padding: 0,
+    margin: 0, // Background color for the entire screen
   },
   card: {
     width: '90%',
     maxWidth: 400,
-    maxHeight:800,
+    maxHeight: 800,
     padding: 20,
     borderRadius: 10,
     backgroundColor: '#C5A580', // Beige color for the card
@@ -126,21 +129,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5, // Effective shadow for Android
-  }, 
-  button:{
-
-    backgroundColor:' black',
+  },
+  button: {
+    backgroundColor: 'black',
     color: 'white',
     borderRadius: 15,
-    borderColor:'black',
-    borderWidth:2,
-    textAlign:'center',
-   
+    borderColor: 'black',
+    borderWidth: 2,
+    textAlign: 'center',
   },
   buttonText: {
     color: 'black', // Text color for the button
     fontSize: 16,
-    textAlign:'center'
+    textAlign: 'center'
   },
   input: {
     backgroundColor: '#2E2E2E', // Black background for input fields

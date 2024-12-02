@@ -9,6 +9,7 @@ import ContactUsPage from './ContactUsPage'; // Contact Us page
 import MainPage from './MainPage';
 import ShoppingPage from './ShoppingPage';
 import detailsStack from './detailsStack';
+import Navigation from './Navigation';
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({ user }) {
@@ -38,7 +39,7 @@ export default function MyDrawer({ user }) {
         <Drawer.Screen name="Shopping" component={detailsStack} />
         <Drawer.Screen name="Contact Us" component={ContactUsPage} />
         {!user ? (
-          <Drawer.Screen name="Sign In" component={AuthScreen} />
+          <Drawer.Screen name="Sign In" component={Navigation} />
         ) : (
           <Drawer.Screen name="Profile" component={AccountScreen} />
         )}
