@@ -82,9 +82,9 @@ console.log(convertedPrice);
         <Image source={require('./images/firstFullpic.png')} style={styles.fullImage} />
         <View style={styles.overlayTextContainer}>
           <Text style={styles.overlayTitle}>Veneris Horology</Text>
-          <Text style={styles.overlayDescription}>A Legacy of Precision, A Statement of Style</Text>
-        </View>
-      </View>
+          <Text style={styles.overlayDescription}>A Legacy of Precision,</Text>
+          <Text style={styles.overlayDescription1}>A Statement of Style</Text> </View>
+</View>
 
       
 {/* Shop Now Button */}
@@ -185,14 +185,14 @@ const styles = StyleSheet.create({
   discoverMoreButton: {
     backgroundColor: '#C5A580',
     paddingVertical: 12,
-    paddingHorizontal: 40,
+    paddingHorizontal: 30,
     marginVertical: 20,
     borderRadius: 5,
     alignSelf: 'center',
   },
   discoverMoreText: {
     color: '#000',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -223,19 +223,29 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 10,
     fontWeight: 'bold',
+    marginLeft:12,
+  },
+  overlayDescription1: {
+    fontSize: 16,
+    color: '#fff',
+    marginTop: 10,
+    fontWeight: 'bold',
+    marginLeft:14,
   },
   shopNowButton: {
     backgroundColor: '#C5A580',
     paddingVertical: 12,
-    paddingHorizontal: 40,
+    paddingHorizontal: 10,
     marginVertical: 15,
+    marginTop:-130,
     borderRadius: 5,
+    marginLeft:100,
     alignSelf: 'center',
     marginBottom: 20
   },
   shopNowText: {
     color: '#000',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
   },
