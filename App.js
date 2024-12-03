@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import MyDrawer from './components/MyDrawer';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
+import { CurrencyProvider } from './components/CurrencyContext';
 
 const App = () => {
   const [user, setUser] = useState(null); // State to manage user
@@ -17,9 +18,11 @@ const App = () => {
   }, []);
 
   return (
+    <CurrencyProvider>
     <NavigationContainer>
       <MyDrawer user={user} /> 
     </NavigationContainer>
+    </CurrencyProvider>
   );
 };
 

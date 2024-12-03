@@ -1,11 +1,10 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';  // Import navigation hook
+import { useCurrency } from './CurrencyContext';  // Import currency context
 import BestSeller1 from './images/bstblack-removebg.png';
 import BestSeller2 from './images/bstGold-removebg.png';
 import BestSeller3 from './images/bstFem-removebg.png';
-import firstFullpic from './images/firstFullpic.png';
-import founderImage from './images/founder-removebg-preview.png';
 
 const bestSellersData = [
   { 
@@ -53,41 +52,46 @@ const bestSellersData = [
 ];
 
 const HomePage = () => {
-  const navigation = useNavigation();  // Access the navigation object
+  const { currency, exchangeRates } = useCurrency(); // Access currency and exchange rates from context
+  const navigation = useNavigation();  // Navigation hook
+
+  // Function to convert price based on selected currency
+  const convertPrice = (price) => {
+    if (exchangeRates && currency !== 'USD') {
+      return (price * exchangeRates[currency]).toFixed(2);
+    }
+    return price.toFixed(2);  // If no conversion needed, return the original price
+  };
 
   // Handle the watch selection
   const handleWatchPress = (watch) => {
-    navigation.navigate('ShoppingDetails', { watch }); // Navigate to ShoppingDetails screen with watch data
-  };
-
-  // Handle the "Discover More" button press
-  const handleDiscoverMorePress = () => {
-    // Navigate to ShoppingPage and also sync the drawer with this change
-    navigation.navigate('Shopping');  // This will ensure that the drawer shows the shopping page
-  };
-
-  // Handle the "Shop Now" button press
-  const handleShopNowPress = () => {
-    // Navigate to ShoppingPage and also sync the drawer with this change
-    navigation.navigate('Shopping');  // This will ensure that the drawer shows the shopping page
+    const convertedPrice = convertPrice(watch.price);  // Get the price in selected currency
+console.log(convertedPrice);
+    // Ensure you're passing the converted price, not the original one
+    navigation.navigate('ShoppingDetails', { 
+      watch, 
+      watch: { ...watch, price: convertedPrice },
+      currency 
+    });
   };
 
   return (
     <ScrollView style={styles.scrollView}>
-     
       <View style={styles.bestSellersContainer}>
         <Text style={styles.bestSellersTitle}>Best Sellers</Text>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {bestSellersData.map((item) => (
-            <TouchableOpacity 
-              key={item.id} 
-              onPress={() => handleWatchPress(item)} // Navigate to ShoppingDetails
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => handleWatchPress(item)}  // Navigate to ShoppingDetails with the watch data and converted price
             >
               <View style={styles.bestSellerCard}>
                 <Image source={item.image} style={styles.bestSellerImage} />
                 <Text style={styles.bestSellerName}>{item.name}</Text>
-                <Text style={styles.bestSellerPrice}>${item.price.toFixed(2)}</Text>
+                <Text style={styles.bestSellerPrice}>
+                  {convertPrice(item.price)} {currency} {/* Display converted price */}
+                </Text>
                 <Text style={styles.bestSellerDescription}>{item.description}</Text>
               </View>
             </TouchableOpacity>
@@ -96,26 +100,27 @@ const HomePage = () => {
       </View>
 
       {/* Discover More Button */}
-      <TouchableOpacity style={styles.discoverMoreButton} onPress={handleDiscoverMorePress}>
+      <TouchableOpacity style={styles.discoverMoreButton} onPress={() => navigation.navigate('Shopping')}>
         <Text style={styles.discoverMoreText}>Discover More</Text>
       </TouchableOpacity>
 
+      {/* Full Image Section */}
       <View style={styles.fullImageContainer}>
-        <Image source={firstFullpic} style={styles.fullImage} />
+        <Image source={require('./images/firstFullpic.png')} style={styles.fullImage} />
         <View style={styles.overlayTextContainer}>
           <Text style={styles.overlayTitle}>Veneris Horology</Text>
-          <Text style={styles.overlayDescription}>A Legacy of Precision, A statement of Style</Text>
+          <Text style={styles.overlayDescription}>A Legacy of Precision, A Statement of Style</Text>
         </View>
       </View>
 
       {/* Shop Now Button */}
-      <TouchableOpacity style={styles.shopNowButton} onPress={handleShopNowPress}>
+      <TouchableOpacity style={styles.shopNowButton} onPress={() => navigation.navigate('Shopping')}>
         <Text style={styles.shopNowText}>Shop Now</Text>
       </TouchableOpacity>
 
-      {/* Founder Image and Text Section */}
+      {/* Founder Section */}
       <View style={styles.founderContainer}>
-        <Image source={founderImage} style={styles.founderImage} />
+        <Image source={require('./images/founder-removebg-preview.png')} style={styles.founderImage} />
         <View style={styles.founderTextContainer}>
           <Text style={styles.founderTitle}>The Original</Text>
           <Text style={styles.founderDescription}>

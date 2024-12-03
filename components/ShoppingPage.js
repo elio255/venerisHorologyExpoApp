@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -11,6 +10,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker'; 
 import { useNavigation } from '@react-navigation/native';
+import { useCurrency } from './CurrencyContext'; // Import the currency context
 import styles from './ShoppingPageDesign';
 import { getExchangeRates } from './currencyApi';
 import BestSeller1 from './images/bstblack.jpg';
@@ -244,24 +244,24 @@ const watches = [
 ];
 
 export default function ShoppingPage() {
+  const { currency, changeCurrency } = useCurrency(); // Access currency context
   const [search, setSearch] = useState('');
   const [selectedGenders, setSelectedGenders] = useState([]);
   const [isGenderFilterOpen, setIsGenderFilterOpen] = useState(true);
-  const [currency, setCurrency] = useState('USD'); // Selected currency
   const [exchangeRates, setExchangeRates] = useState(null); // Exchange rates
   const navigation = useNavigation();
 
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        const rates = await getExchangeRates();
+        const rates = await getExchangeRates(); // Fetch exchange rates using the current currency
         setExchangeRates(rates);
       } catch (error) {
         console.error('Error fetching exchange rates:', error);
       }
     };
     fetchRates();
-  }, []);
+  }, [currency]); // Refetch exchange rates when currency changes
 
   const handleGenderChange = (gender) => {
     setSelectedGenders((prev) =>
@@ -351,22 +351,21 @@ export default function ShoppingPage() {
 
         {/* Currency Selector */}
         <View style={styles.currencySelector}>
-  <Text style={styles.sidebarTitle}>
-    {isGenderFilterOpen ? 'Currency:' : ''}
-  </Text>
-  <Picker
-    selectedValue={currency}
-    style={styles.picker}
-    onValueChange={(itemValue) => setCurrency(itemValue)}
-    itemStyle={{ color: '#C5A580' }} // Set the selected text color to beige
-  >
-    {exchangeRates &&
-      Object.keys(exchangeRates).map((cur) => (
-        <Picker.Item key={cur} label={cur} value={cur} />
-      ))}
-  </Picker>
-</View>
-
+          <Text style={styles.sidebarTitle}>
+            {isGenderFilterOpen ? 'Currency:' : ''}
+          </Text>
+          <Picker
+            selectedValue={currency}
+            style={styles.picker}
+            onValueChange={(itemValue) => changeCurrency(itemValue)} // Change currency
+            itemStyle={{ color: '#C5A580' }} // Set the selected text color to beige
+          >
+            {exchangeRates &&
+              Object.keys(exchangeRates).map((cur) => (
+                <Picker.Item key={cur} label={cur} value={cur} />
+              ))}
+          </Picker>
+        </View>
       </View>
 
       {/* Main Content */}
