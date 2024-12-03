@@ -293,6 +293,7 @@ export default function ShoppingPage() {
           watch: item,
           currency,
           exchangeRates,
+          image:item.image,
         })
       }
     >

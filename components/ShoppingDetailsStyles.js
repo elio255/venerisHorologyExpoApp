@@ -63,6 +63,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  cartButton: {
+    marginTop: 20,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  cartButtonText: {
+    color: '#C5A580',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
