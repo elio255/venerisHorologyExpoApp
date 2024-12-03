@@ -74,7 +74,7 @@ const HomePage = () => {
 
   return (
     <ScrollView style={styles.scrollView}>
-      {/* Best Sellers Section */}
+     
       <View style={styles.bestSellersContainer}>
         <Text style={styles.bestSellersTitle}>Best Sellers</Text>
 
