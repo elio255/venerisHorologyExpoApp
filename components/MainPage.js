@@ -77,6 +77,22 @@ console.log(convertedPrice);
 
   return (
     <ScrollView style={styles.scrollView}>
+     {/* Full Image Section */}
+     <View style={styles.fullImageContainer}>
+        <Image source={require('./images/firstFullpic.png')} style={styles.fullImage} />
+        <View style={styles.overlayTextContainer}>
+          <Text style={styles.overlayTitle}>Veneris Horology</Text>
+          <Text style={styles.overlayDescription}>A Legacy of Precision, A Statement of Style</Text>
+        </View>
+      </View>
+
+      {/* Discover More Button */}
+      <TouchableOpacity style={styles.discoverMoreButton} onPress={() => navigation.navigate('Shopping')}>
+        <Text style={styles.discoverMoreText}>Discover More</Text>
+      </TouchableOpacity>
+
+     
+
       <View style={styles.bestSellersContainer}>
         <Text style={styles.bestSellersTitle}>Best Sellers</Text>
 
@@ -98,21 +114,6 @@ console.log(convertedPrice);
           ))}
         </ScrollView>
       </View>
-
-      {/* Discover More Button */}
-      <TouchableOpacity style={styles.discoverMoreButton} onPress={() => navigation.navigate('Shopping')}>
-        <Text style={styles.discoverMoreText}>Discover More</Text>
-      </TouchableOpacity>
-
-      {/* Full Image Section */}
-      <View style={styles.fullImageContainer}>
-        <Image source={require('./images/firstFullpic.png')} style={styles.fullImage} />
-        <View style={styles.overlayTextContainer}>
-          <Text style={styles.overlayTitle}>Veneris Horology</Text>
-          <Text style={styles.overlayDescription}>A Legacy of Precision, A Statement of Style</Text>
-        </View>
-      </View>
-
       {/* Shop Now Button */}
       <TouchableOpacity style={styles.shopNowButton} onPress={() => navigation.navigate('Shopping')}>
         <Text style={styles.shopNowText}>Shop Now</Text>
