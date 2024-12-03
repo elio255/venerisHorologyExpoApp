@@ -70,7 +70,7 @@ console.log(convertedPrice);
     // Ensure you're passing the converted price, not the original one
     navigation.navigate('ShoppingDetails', { 
       watch, 
-      watch: { ...watch, price: convertedPrice },
+      convertedPrice,
       currency 
     });
   };
