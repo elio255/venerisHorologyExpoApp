@@ -1,13 +1,13 @@
 import React from 'react';
 import { StatusBar } from 'react-native'; // Import StatusBar
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import MainPage from './MainPage'; // Your main page component
-import ContactUsPage from './ContactUsPage'; // Your contact page component
-import CustomDrawerContent from './CustomDrawerContent';
-import ShoppingStack from './ShoppingStack'; // Assuming you have this stack set up
-import AuthScreen from './AuthScreen'; // Importing AuthScreen for sign-in
-import AccountScreen from './AccountScreen'; // Create this screen for user account details
-
+import CustomDrawerContent from './CustomDrawerContent'; // Custom drawer content
+import ShoppingStack from './ShoppingStack'; // ShoppingStack
+import AuthScreen from './AuthScreen'; // Sign-in screen
+import AccountScreen from './AccountScreen'; // Profile screen for user account
+import ContactUsPage from './ContactUsPage'; // Contact Us page
+import MainPage from './MainPage';
+import ShoppingPage from './ShoppingPage';
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({ user }) {
@@ -33,8 +33,8 @@ export default function MyDrawer({ user }) {
           drawerInactiveTintColor: '#a0a0a0', // Inactive drawer item text color
         }}
       >
-        <Drawer.Screen name="Main" component={MainPage} />
-        <Drawer.Screen name="Shopping" component={ShoppingStack} />
+        <Drawer.Screen name="Main" component={ShoppingStack} />
+        <Drawer.Screen name="Shopping" component={ShoppingPage} />
         <Drawer.Screen name="Contact Us" component={ContactUsPage} />
         {!user ? (
           <Drawer.Screen name="Sign In" component={AuthScreen} />

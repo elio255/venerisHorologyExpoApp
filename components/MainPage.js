@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';  // Import navigation hook
 import BestSeller1 from './images/bstblack-removebg.png';
@@ -7,7 +7,6 @@ import BestSeller3 from './images/bstFem-removebg.png';
 import firstFullpic from './images/firstFullpic.png';
 import founderImage from './images/founder-removebg-preview.png';
 
-// Data for Best Sellers
 const bestSellersData = [
   { 
     id: 1, 
@@ -63,7 +62,14 @@ const HomePage = () => {
 
   // Handle the "Discover More" button press
   const handleDiscoverMorePress = () => {
-    navigation.navigate('ShoppingPage'); // Navigate to ShoppingPage when pressed
+    // Navigate to ShoppingPage and also sync the drawer with this change
+    navigation.navigate('Shopping');  // This will ensure that the drawer shows the shopping page
+  };
+
+  // Handle the "Shop Now" button press
+  const handleShopNowPress = () => {
+    // Navigate to ShoppingPage and also sync the drawer with this change
+    navigation.navigate('Shopping');  // This will ensure that the drawer shows the shopping page
   };
 
   return (
@@ -102,8 +108,8 @@ const HomePage = () => {
         </View>
       </View>
 
-      {/* Shop Now Button moved outside fullImageContainer */}
-      <TouchableOpacity style={styles.shopNowButton} onPress={() => console.log('Navigating to shop section...')}>
+      {/* Shop Now Button */}
+      <TouchableOpacity style={styles.shopNowButton} onPress={handleShopNowPress}>
         <Text style={styles.shopNowText}>Shop Now</Text>
       </TouchableOpacity>
 
