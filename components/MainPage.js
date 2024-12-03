@@ -86,11 +86,11 @@ console.log(convertedPrice);
         </View>
       </View>
 
-      {/* Discover More Button */}
-      <TouchableOpacity style={styles.discoverMoreButton} onPress={() => navigation.navigate('Shopping')}>
-        <Text style={styles.discoverMoreText}>Discover More</Text>
+      
+{/* Shop Now Button */}
+<TouchableOpacity style={styles.shopNowButton} onPress={() => navigation.navigate('Shopping')}>
+        <Text style={styles.shopNowText}>Shop Now</Text>
       </TouchableOpacity>
-
      
 
       <View style={styles.bestSellersContainer}>
@@ -114,11 +114,11 @@ console.log(convertedPrice);
           ))}
         </ScrollView>
       </View>
-      {/* Shop Now Button */}
-      <TouchableOpacity style={styles.shopNowButton} onPress={() => navigation.navigate('Shopping')}>
-        <Text style={styles.shopNowText}>Shop Now</Text>
+      
+{/* Discover More Button */}
+<TouchableOpacity style={styles.discoverMoreButton} onPress={() => navigation.navigate('Shopping')}>
+        <Text style={styles.discoverMoreText}>Discover More</Text>
       </TouchableOpacity>
-
       {/* Founder Section */}
       <View style={styles.founderContainer}>
         <Image source={require('./images/founder-removebg-preview.png')} style={styles.founderImage} />
