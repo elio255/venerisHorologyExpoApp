@@ -8,12 +8,13 @@ import AccountScreen from './AccountScreen'; // Profile screen for user account
 import ContactUsPage from './ContactUsPage'; // Contact Us page
 import MainPage from './MainPage';
 import ShoppingPage from './ShoppingPage';
+import detailsStack from './detailsStack';
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({ user }) {
   return (
     <>
-     
+      {/* Configure the status bar */}
       <StatusBar barStyle="light-content" backgroundColor="#121212" />
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} user={user} />}
@@ -34,7 +35,7 @@ export default function MyDrawer({ user }) {
         }}
       >
         <Drawer.Screen name="Main" component={ShoppingStack} />
-        <Drawer.Screen name="Shopping" component={ShoppingPage} />
+        <Drawer.Screen name="Shopping" component={detailsStack} />
         <Drawer.Screen name="Contact Us" component={ContactUsPage} />
         {!user ? (
           <Drawer.Screen name="Sign In" component={AuthScreen} />
